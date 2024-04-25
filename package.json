@@ -21,12 +21,14 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "faker": "^6.6.6",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.5",
     "umzug": "^3.8.0",
     "zod": "^3.23.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bcrypt": "^5.0.2",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/cookie-parser": "^1.4.7",
