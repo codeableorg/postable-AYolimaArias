@@ -44,7 +44,7 @@ authRouter.post("/login", async (req, res, next) => {
     const token = jwt.sign(payload, jwtSecret, { expiresIn: "120m" });
     res.json({
       ok: true,
-      message: "Login exitoso",
+      message: "Login successful",
       data: { token: token },
     });
   } catch (error) {
