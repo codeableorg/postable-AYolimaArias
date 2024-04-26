@@ -1,9 +1,9 @@
-import { User} from "../models/user";
+import { User } from "../models/user";
 import * as userDB from "../data/user-data";
 
 //GET/me:
 
-export async function getProfile(id: number): Promise<User | undefined> {
+export async function getProfile(id: number): Promise<User> {
   const user = await userDB.getUser(id);
   return user;
 }
