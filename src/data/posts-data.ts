@@ -8,7 +8,8 @@ export async function getPostsFromDB(
   page?: number,
   limit?: number
 ): Promise<Post[]> {
-  let query = "SELECT * FROM posts";
+  let query =
+    "SELECT p.id,p.content,p.createdat,p.updatedat,u.username, COALESCE(SUM(CASE WHEN pl.id IS NOT NULL THEN 1 ELSE 0 END),0) AS LikesCount FROM posts AS p JOIN users AS u ON u.id=p.userid LEFT JOIN likes AS pl ON pl.postid = p.id GROUP BY p.id, u.username";
   const queryParams: (string | boolean | number)[] = [];
 
   //Filtering:
