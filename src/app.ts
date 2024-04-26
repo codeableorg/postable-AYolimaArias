@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import sessionHandler from "./middlewares/session";
 import errorHandler from "./middlewares/error";
 import authRouter from "./routers/auth-router";
+import userRouter from "./routers/user-router";
 
 if (process.env["NODE_ENV"] === "test") {
   configDotenv({ path: ".env.test" });
@@ -20,6 +21,6 @@ app.use(errorHandler);
 
 //ROUTERS:
 app.use(authRouter);
-// app.use("users", userRouter);
+app.use("/me", userRouter);
 // app.use("posts", postRouter);
 // app.use("likes", likeRouter);
