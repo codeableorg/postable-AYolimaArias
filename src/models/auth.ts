@@ -5,7 +5,22 @@ export const userSchema = z.object({
     required_error: "Username es requerido",
     invalid_type_error: "Username debe ser un string",
   }),
-
+  email: z
+    .string({
+      invalid_type_error: "Email debe ser un string",
+    })
+    .email({ message: "El correo electrónico debe ser valido" })
+    .optional(),
+  firstname: z
+    .string({
+      invalid_type_error: "firstName debe ser un string",
+    })
+    .optional(),
+  lastname: z
+    .string({
+      invalid_type_error: "lastName debe ser un string",
+    })
+    .optional(),
   password: z
     .string({
       required_error: "Password es requerido",
@@ -17,6 +32,8 @@ export const userSchema = z.object({
       errorMap: () => ({ message: "El rol debe ser admin o user" }),
     })
     .default("user"),
+  createdat: z.string().optional(),
+  updatedat: z.string().optional(),
 });
 
 export type UserParams = z.infer<typeof userSchema>;
