@@ -29,7 +29,7 @@ userRouter.get(
         },
       });
     } catch (error) {
-      next(new ApiError("Bad Request", 400));
+      next(new ApiError("Unauthorized", 401));
     }
   }
 );
