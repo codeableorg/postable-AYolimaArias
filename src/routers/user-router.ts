@@ -1,6 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
 import { authenticateHandler } from "../middlewares/authenticate";
-import { getProfile, updateProfile } from "../services/user-service";
+import {
+  deleteUser,
+  getProfile,
+  updateProfile,
+} from "../services/user-service";
 import { ApiError } from "../middlewares/error";
 import { User } from "../models/user";
 
@@ -67,6 +71,24 @@ userRouter.patch(
         )
       );
     }
+  }
+);
+
+//DELETE/me:
+userRouter.delete(
+  "/",
+  authenticateHandler,
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (req.userId === undefined) {
+      return next(new ApiError("Unauthorized", 401));
+    }
+    try {
+      await deleteUser(req.userId);
+      res.json({
+        ok: true,
+        message: "User deleted successfully",
+      });
+    } catch (error) {}
   }
 );
 

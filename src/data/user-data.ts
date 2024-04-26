@@ -34,3 +34,9 @@ export async function editUser({
 
   return result.rows[0]; // Devuelve el usuario actualizado
 }
+
+//DELETE/me:
+export async function deleteUserDb(id: number) {
+  const result = await query("DELETE FROM users WHERE id=$1", [id]);
+  return result;
+}
