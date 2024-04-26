@@ -30,3 +30,8 @@ export const userSchema = z.object({
 export type UserParams = z.infer<typeof userSchema>;
 
 export type User = UserParams & { id: number };
+
+export interface UpdateUserParams {
+  id: number;
+  fieldsToUpdate: Record<string, any>;
+}
