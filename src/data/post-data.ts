@@ -5,7 +5,7 @@ import { Post, UpdatePostParams } from "../models/posts";
 export async function createPostDB(id: number, post: Post) {
   const { content } = post;
   const result = await query(
-    "INSERT INTO posts (userid, content) VALUES ($1,$2) RETURNING *,(SELECT u.username FROM users AS u WHERE u.id =$1) AS username, 0 AS likesCount",
+    "INSERT INTO posts (userid, content) VALUES ($1,$2) RETURNING id,content,createdat,updatedat,(SELECT u.username FROM users AS u WHERE u.id =$1) AS username, 0 AS likesCount",
     [id, content]
   );
   return result.rows[0];
