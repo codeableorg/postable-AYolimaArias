@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { authenticateHandler } from "../middlewares/authenticate";
 import { ApiError } from "../middlewares/error";
 import { Post } from "../models/posts";
-import { createPost } from "../services/post-service";
+import { createPost, updatePost } from "../services/post-service";
 
 const postRouter = express.Router();
 
@@ -22,6 +22,34 @@ postRouter.post(
         data: newPost,
       });
     } catch (error) {
+      next(new ApiError("Bad Request", 400));
+    }
+  }
+);
+
+//PATCH/posts/:id:
+
+postRouter.patch(
+  "/:id",
+  authenticateHandler,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postData: Post = req.body;
+      const { id } = req.params;
+      const post = await updatePost(Number(id), postData);
+      res.json({
+        ok: true,
+        data: {
+          id: post.id,
+          content: post.content,
+          createdAt: post.createdat,
+          updatedAt: post.updatedat,
+          username: post.username,
+          likesCount: post.likes_count,
+        },
+      });
+    } catch (error) {
+      console.log(error);
       next(new ApiError("Bad Request", 400));
     }
   }
