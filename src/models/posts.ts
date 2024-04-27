@@ -5,7 +5,6 @@ export const postSchema = z.object({
   createdat: z.string(),
   updatedat: z.string(),
   username: z.string(),
-  likes_count: z.number(),
 });
 
 export type PostParams = z.infer<typeof postSchema>;

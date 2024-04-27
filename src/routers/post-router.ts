@@ -2,7 +2,11 @@ import express, { NextFunction, Request, Response } from "express";
 import { authenticateHandler } from "../middlewares/authenticate";
 import { ApiError } from "../middlewares/error";
 import { Post } from "../models/posts";
-import { createPost, updatePost } from "../services/post-service";
+import {
+  createPost,
+  likePostInPostData,
+  updatePost,
+} from "../services/post-service";
 
 const postRouter = express.Router();
 
@@ -39,18 +43,38 @@ postRouter.patch(
       const post = await updatePost(Number(id), postData);
       res.json({
         ok: true,
-        data: {
-          id: post.id,
-          content: post.content,
-          createdAt: post.createdat,
-          updatedAt: post.updatedat,
-          username: post.username,
-          likesCount: post.likes_count,
-        },
+        data: post,
       });
     } catch (error) {
       console.log(error);
       next(new ApiError("Bad Request", 400));
+    }
+  }
+);
+
+//POST/posts/:postId/like:
+
+postRouter.post(
+  "/:postId/like",
+  authenticateHandler,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.userId;
+      const { postId } = req.params;
+      const createdat = new Date().toISOString();
+      const like = {
+        postid: Number(postId),
+        userid: Number(userId),
+        createdat,
+      };
+      const likedPost = await likePostInPostData(like);
+      res.json({
+        ok: true,
+        message: "Like successfull",
+        data: likedPost,
+      });
+    } catch (error) {
+      next(new ApiError("Post doesn't exist", 404));
     }
   }
 );

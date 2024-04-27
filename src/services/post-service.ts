@@ -1,4 +1,9 @@
-import { createPostDB, updatePostDB } from "../data/post-data";
+import {
+  createLikePostDB,
+  createPostDB,
+  updatePostDB,
+} from "../data/post-data";
+import { Like } from "../models/like";
 import { Post } from "../models/posts";
 
 //POST/posts:
@@ -15,4 +20,10 @@ export async function updatePost(id: number, post: Post) {
   };
   const updatePost: Post = await updatePostDB(dataPost);
   return updatePost;
+}
+
+//POST/posts/:postId/like:
+export async function likePostInPostData(like: Like): Promise<Post> {
+  const likedPost = await createLikePostDB(like);
+  return likedPost;
 }

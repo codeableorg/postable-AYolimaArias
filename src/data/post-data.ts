@@ -1,4 +1,5 @@
 import { query } from "../db";
+import { Like } from "../models/like";
 import { Post, UpdatePostParams } from "../models/posts";
 
 //POST/posts:
@@ -34,5 +35,14 @@ export async function updatePostDB({
 
   const result = await query(updateQuery, params);
 
+  return result.rows[0];
+}
+
+export async function createLikePostDB(like: Like): Promise<Post> {
+  const { userid, postid, createdat } = like;
+  const result = await query(
+    "INSERT INTO likes (userId, postId, createdat) VALUES ($1,$2,$3)",
+    [userid, postid, createdat]
+  );
   return result.rows[0];
 }
