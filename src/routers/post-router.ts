@@ -4,6 +4,7 @@ import { ApiError } from "../middlewares/error";
 import { Post } from "../models/posts";
 import {
   createPost,
+  deleteLikeInPost,
   likePostInPostData,
   updatePost,
 } from "../services/post-service";
@@ -76,6 +77,25 @@ postRouter.post(
     } catch (error) {
       next(new ApiError("Post doesn't exist", 404));
     }
+  }
+);
+
+// DELETE/posts/:postId/like:
+postRouter.delete(
+  "/:postId/like",
+  authenticateHandler,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.userId;
+      const { postId } = req.params;
+
+      const deleteLike = await deleteLikeInPost(Number(postId), Number(userId));
+      res.json({
+        ok: true,
+        message: "Like deleted",
+        data: deleteLike,
+      });
+    } catch (error) {}
   }
 );
 

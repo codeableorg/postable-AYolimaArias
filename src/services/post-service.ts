@@ -1,6 +1,7 @@
 import {
   createLikePostDB,
   createPostDB,
+  deleteLikeFromDB,
   updatePostDB,
 } from "../data/post-data";
 import { Like } from "../models/like";
@@ -26,4 +27,13 @@ export async function updatePost(id: number, post: Post) {
 export async function likePostInPostData(like: Like): Promise<Post> {
   const likedPost = await createLikePostDB(like);
   return likedPost;
+}
+
+//DELETE/posts/:postId/like:
+export async function deleteLikeInPost(
+  postId: number,
+  userId: number
+): Promise<void> {
+  const deleteLike = await deleteLikeFromDB(postId, userId);
+  return deleteLike;
 }

@@ -38,6 +38,7 @@ export async function updatePostDB({
   return result.rows[0];
 }
 
+//POST/posts/:postId/like:
 export async function createLikePostDB(like: Like): Promise<Post> {
   const { userid, postid, createdat } = like;
   const result = await query(
@@ -45,4 +46,9 @@ export async function createLikePostDB(like: Like): Promise<Post> {
     [userid, postid, createdat]
   );
   return result.rows[0];
+}
+
+//DELETE/posts/:postId/like:
+export async function deleteLikeFromDB(postId:number, userId:number):Promise<void>{
+  await query("DELETE FROM likes WHERE postid = $1 AND userid =$2",[postId, userId])
 }
