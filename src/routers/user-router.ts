@@ -11,7 +11,6 @@ import { User } from "../models/user";
 const userRouter = express.Router();
 
 //GET/me:
-
 userRouter.get(
   "/",
   authenticateHandler,
