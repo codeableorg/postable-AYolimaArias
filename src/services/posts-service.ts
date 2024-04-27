@@ -22,16 +22,7 @@ export async function getPostsCount(
 }
 
 //GET/posts/:username:
-// export async function getPostWithUsername(
-//   filters: PostsFilters = {},
-//   sort?: string,
-//   page: number = 1,
-//   limit: number = 10,
-//   username?: string
-// ): Promise<Post[]> {
-//   return await getPostFromDB(filters, sort, page, limit, username);
-// }
-export async function getPostsByUsername(username:string){
-    const posts=await getPostsByUsernameFromDB(username)
-    return posts
+export async function getPostsByUsername(username: string) {
+  const posts = await getPostsByUsernameFromDB(username);
+  return posts;
 }
