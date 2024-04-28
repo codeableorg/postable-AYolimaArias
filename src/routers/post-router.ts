@@ -68,7 +68,9 @@ postRouter.post(
         userid: Number(userId),
         createdat,
       };
+
       const likedPost = await likePostInPostData(like);
+
       res.json({
         ok: true,
         message: "Like successfull",
