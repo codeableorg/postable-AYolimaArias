@@ -30,7 +30,6 @@ export async function updatePostDB({
     entries.length + 1
   } RETURNING *, (SELECT username FROM users WHERE id = posts.userid) AS username`;
 
-  // Los parámetros deben incluir id y userId al principio, seguidos de los valores de los campos a actualizar
   const params = [...entries.map(([, value]) => value), id];
 
   const result = await query(updateQuery, params);
